@@ -1,4 +1,4 @@
-const BASE_URL = "https://loop-backend-production-a1b3.up.railway.app/";
+const BASE_URL = "https://loop-backend-production-a1b3.up.railway.app";
 
 document.getElementById("uploadForm").addEventListener("submit", async (e) => {
     e.preventDefault();
