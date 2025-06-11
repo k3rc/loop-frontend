@@ -1,21 +1,29 @@
-const BASE_URL = "https://loop-backend-production-a1b3.up.railway.app";
+const BASE_URL = "https://YOUR_BACKEND_URL_HERE"; // Замени на Railway URL
 
-document.getElementById("loginForm").addEventListener("submit", async (e) => {
-    e.preventDefault();
-    const username = document.getElementById("username").value;
-    const password = document.getElementById("password").value;
-
-    const res = await fetch(`${BASE_URL}/login`, {
+async function register(email, password) {
+    const res = await fetch(`${BASE_URL}/register`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ username, password }),
+        body: JSON.stringify({ email, password }),
     });
-
     const data = await res.json();
-    if (data.token) {
-        localStorage.setItem("token", data.token);
+    alert(data.message || data.detail);
+}
+
+async function login(email, password) {
+    const res = await fetch(`${BASE_URL}/token`, {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: new URLSearchParams({
+            username: email,
+            password: password
+        }),
+    });
+    const data = await res.json();
+    if (data.access_token) {
+        localStorage.setItem("access_token", data.access_token);
         window.location.href = "home.html";
     } else {
-        alert("Login failed");
+        alert("Login failed: " + (data.detail || ""));
     }
-});
+}
