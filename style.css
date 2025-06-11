@@ -6,16 +6,11 @@
 
 body {
   margin: 0;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  background: linear-gradient(-45deg, #0f0c29, #302b63, #24243e, #1c1c1c);
+  font-family: 'Segoe UI', sans-serif;
+  background: linear-gradient(145deg, #0a0f1d, #1c0030, #300036);
   background-size: 400% 400%;
-  animation: gradientBG 15s ease infinite;
+  animation: gradient 15s ease infinite;
   color: white;
-  text-align: center;
 }
 
 
@@ -76,8 +71,8 @@ button {
   backdrop-filter: blur(10px);
 }
 
-@keyframes gradientBG {
-  0% {background-position: 0% 50%;}
-  50% {background-position: 100% 50%;}
-  100% {background-position: 0% 50%;}
+@keyframes gradient {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
