@@ -1,0 +1,24 @@
+
+<svg width="300" height="300" viewBox="0 0 300 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <radialGradient id="blobGradient" cx="50%" cy="50%" r="50%" fx="30%" fy="30%">
+      <stop offset="0%" stop-color="#ff5f6d" />
+      <stop offset="50%" stop-color="#ffc371" />
+      <stop offset="100%" stop-color="#5f2c82" />
+    </radialGradient>
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="15" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  <rect width="300" height="300" fill="#111111"/>
+  <path d="M150 80C180 60 240 100 230 150C220 200 180 210 140 200C100 190 80 170 90 130C100 90 120 90 150 80Z"
+        fill="url(#blobGradient)" filter="url(#glow)"/>
+  <text x="50%" y="165" text-anchor="middle" fill="#ffffff" font-size="70" font-family="Georgia, serif" font-weight="bold">
+    Loop
+  </text>
+  <path d="M230 95 L233 102 L240 104 L233 106 L230 113 L227 106 L220 104 L227 102 Z" fill="#ffffff" />
+</svg>
