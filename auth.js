@@ -1,4 +1,4 @@
-const BASE_URL = "https://YOUR_BACKEND_URL_HERE"; // Замени на Railway URL
+const BASE_URL = "https://loop-backend-production-a1b3.up.railway.app"; // Замени на Railway URL
 
 async function register(email, password) {
     const res = await fetch(`${BASE_URL}/register`, {
