@@ -1,25 +1,71 @@
-<h2>Upload track</h2>
-<form id="uploadForm">
-  <input name="title"  placeholder="Title"  required>
-  <input name="artist" placeholder="Artist" required>
-  <input name="genre"  placeholder="Genre"  required>
-  <input name="album"  placeholder="Album"  required>
-  <input type="file" name="file"  accept="audio/*" required>
-  <input type="file" name="cover" accept="image/*" required>
-  <button>Upload</button>
-</form>
-<div id="status"></div>
-<script>
-const BACK = 'https://YOUR-RAILWAY-URL';
-document.getElementById('uploadForm').addEventListener('submit',async e=>{
-  e.preventDefault();
-  const form=new FormData(e.target);
-  const res=await fetch(`${BACK}/upload`,{
-    method:'POST',
-    headers:{Authorization:`Bearer ${localStorage.getItem('token')}`},
-    body:form
-  });
-  document.getElementById('status').textContent=
-    res.ok?'Uploaded ✔️':(await res.text());
-});
-</script>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Loop - Upload</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <header>
+    <h1>Loop</h1>
+    <nav>
+      <a href="home.html">Home</a>
+      <a href="playlist.html">Playlist</a>
+      <a href="upload.html">Upload</a>
+    </nav>
+  </header>
+
+  <main class="content">
+    <h2>Upload Music</h2>
+    
+    <form id="uploadForm" enctype="multipart/form-data">
+      <input name="title"  type="text" placeholder="Title" required />
+      <input name="artist" type="text" placeholder="Artist" required />
+      <input name="genre"  type="text" placeholder="Genre" required />
+      <input name="album"  type="text" placeholder="Album" required />
+      <input name="file"   type="file" accept="audio/*" required />
+      <input name="cover"  type="file" accept="image/*" required />
+      <button type="submit">Upload</button>
+    </form>
+
+    <div id="status"></div>
+  </main>
+
+  <script>
+    const BACK = 'https://YOUR-RAILWAY-URL'; // Замените на ваш реальный backend URL
+
+    document.getElementById('uploadForm').addEventListener('submit', async e => {
+      e.preventDefault();
+      const form = new FormData(e.target);
+
+      try {
+        const res = await fetch(`${BACK}/upload`, {
+          method: 'POST',
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('token')}`
+          },
+          body: form
+        });
+
+        const statusDiv = document.getElementById('status');
+        if (res.ok) {
+          statusDiv.textContent = 'Uploaded ✔️';
+          statusDiv.style.color = 'green';
+          e.target.reset();
+        } else {
+          const errorText = await res.text();
+          statusDiv.textContent = `Upload failed: ${errorText}`;
+          statusDiv.style.color = 'red';
+        }
+
+      } catch (err) {
+        document.getElementById('status').textContent = 'Network error';
+        console.error(err);
+      }
+    });
+  </script>
+
+</body>
+</html>
