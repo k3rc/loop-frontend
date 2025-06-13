@@ -1,39 +1,42 @@
-const BACKEND = 'https://YOUR-RAILWAY-URL';  // замените
+const BACKEND = "https://your-railway-url.up.railway.app"; // ← замените
 
-window.addEventListener('hashchange', router);
-window.addEventListener('load', router);
-
-async function router(){
-  const page = location.hash.slice(1) || 'home';
-  const html = await fetch(`${page}.html`).then(r=>r.text());
-  document.getElementById('app').innerHTML = html;
-  if(page==='playlist') loadPlaylist();
-  if(page==='upload')   initUpload();
+function navigate(path) {
+  history.pushState({}, "", path);
+  route();
 }
 
-async function loadPlaylist(){
-  const token = localStorage.getItem('token');
-  const res = await fetch(`${BACKEND}/tracks`,{headers:{Authorization:`Bearer ${token}`}});
+async function route() {
+  const path = location.hash || "#home";
+  let page = "home";
+
+  if (path.includes("upload")) page = "upload";
+  if (path.includes("playlist")) page = "playlist";
+
+  const html = await fetch(`${page}.html`).then(res => res.text());
+  document.getElementById("app").innerHTML = html;
+
+  if (page === "upload") import("./upload.js").then(m => m.initUpload(BACKEND));
+  if (page === "playlist") loadPlaylist();
+}
+
+async function loadPlaylist() {
+  const token = localStorage.getItem("token");
+  const res = await fetch(`${BACKEND}/tracks`, {
+    headers: { Authorization: `Bearer ${token}` }
+  });
   const tracks = await res.json();
-  const ul = document.getElementById('playlist');
-  ul.innerHTML='';
-  tracks.forEach(t=>{
-    const li=document.createElement('li');
-    li.textContent=`${t.title} — ${t.artist}`;
-    ul.appendChild(li);
-  });
+  const container = document.getElementById("playlist");
+  container.innerHTML = tracks.map(t => `
+    <div class="track">
+      <img src="${BACKEND}${t.cover}" alt="cover" />
+      <div>
+        <h3>${t.title}</h3>
+        <p>${t.artist} — ${t.album} [${t.genre}]</p>
+        <audio controls src="${BACKEND}${t.file}"></audio>
+      </div>
+    </div>
+  `).join("");
 }
 
-function initUpload(){
-  document.getElementById('uploadForm').addEventListener('submit',async(e)=>{
-    e.preventDefault();
-    const form=new FormData(e.target);
-    const token=localStorage.getItem('token');
-    const res=await fetch(`${BACKEND}/upload`,{
-      method:'POST',
-      headers:{Authorization:`Bearer ${token}`},
-      body:form
-    });
-    document.getElementById('status').textContent=(await res.json()).message||'Uploaded';
-  });
-}
+window.addEventListener("popstate", route);
+window.addEventListener("DOMContentLoaded", route);
