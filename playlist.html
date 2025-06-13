@@ -1,24 +1,32 @@
 <h2>Your Playlist</h2>
-<div id="pl" class="grid"></div>
+<section>
+  <h1>Your Playlist</h1>
+  <div id="playlist" class="grid"></div>
+</section>
+
 <script>
-const BACK='https://YOUR-RAILWAY-URL';
-async function load(){
-  const r=await fetch(`${BACK}/tracks`,{
-    headers:{Authorization:`Bearer ${localStorage.getItem('token')}`}
+const BACK = 'https://YOUR-RAILWAY-URL';
+
+async function load() {
+  const r = await fetch(`${BACK}/tracks`, {
+    headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
   });
-  const tracks=await r.json();
-  const root=document.getElementById('pl');
-  root.innerHTML='';
-  tracks.forEach(t=>{
-    const div=document.createElement('div');
-    div.className='card';
-    div.innerHTML=`
-      <img src="${BACK}/uploads/${t.cover}">
+
+  const tracks = await r.json();
+  const root = document.getElementById('playlist'); // Use 'playlist' to match the id in your HTML
+  root.innerHTML = ''; // Clear the previous content
+
+  tracks.forEach(t => {
+    const div = document.createElement('div');
+    div.className = 'card';
+    div.innerHTML = `
+      <img src="${BACK}/uploads/${t.cover}" alt="${t.title} cover">
       <p><b>${t.title}</b><br>${t.artist}</p>
       <audio controls src="${BACK}/uploads/${t.filename}"></audio>
     `;
     root.appendChild(div);
   });
 }
+
 load();
 </script>
