@@ -1,10 +1,18 @@
-document.getElementById('uploadForm').addEventListener('submit', async (e) => {
-  e.preventDefault();
-  const formData = new FormData(e.target);
-  const res = await fetch('https://loop-backend-production-a1b3.up.railway.app', {
-    method: 'POST',
-    body: formData
+export function initUpload(BACKEND) {
+  const form = document.getElementById("upload-form");
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const formData = new FormData(form);
+    const token = localStorage.getItem("token");
+
+    const res = await fetch(`${BACKEND}/upload`, {
+      method: "POST",
+      headers: { Authorization: `Bearer ${token}` },
+      body: formData
+    });
+
+    const data = await res.json();
+    alert("Uploaded!");
+    location.hash = "#playlist";
   });
-  const msg = await res.text();
-  document.getElementById('uploadStatus').innerText = msg;
-});
+}
