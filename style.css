@@ -1,87 +1,35 @@
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+*{box-sizing:border-box}
+body{
+  margin:0; font-family:'Segoe UI',sans-serif;
+  background:linear-gradient(135deg,#0e0e1c,#32043f,#0e0e1c);
+  background-size:400% 400%;
+  animation:gradient 15s ease infinite;
+  color:#fff;
 }
+@keyframes gradient{0%{background-position:0 50%}50%{background-position:100% 50%}100%{background-position:0 50%}}
 
-
-body {
-  margin: 0;
-  font-family: 'Segoe UI', sans-serif;
-  background: linear-gradient(135deg, #1b1b2f, #3a0ca3);
-  color: white;
+header{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:10px 20px;background:#000000cc;backdrop-filter:blur(6px)
 }
+.logo{height:40px}
+nav a{color:#fff;margin:0 10px;text-decoration:none;font-weight:bold}
+nav a:hover{color:#00e0ff}
 
+main{padding:20px}
 
-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  background-color: #111;
-  padding: 0.5rem 1rem;
+.carousel{display:flex;gap:20px;overflow-x:auto}
+.album{height:120px;border-radius:10px;box-shadow:0 0 10px #000}
+
+.featured{display:flex;gap:20px;overflow-x:auto;margin-bottom:40px}
+.card{min-width:120px;text-align:center}
+.card img{width:100%;border-radius:10px;box-shadow:0 0 10px #000}
+
+input,button{
+  padding:10px;border:none;border-radius:8px;margin:8px 0;width:100%;
 }
+button{background:#00e0ff;color:#000;font-weight:bold;cursor:pointer}
+button:hover{background:#00c8e0}
 
-nav a {
-  color: white;
-  margin: 0 15px;
-  text-decoration: none;
-  font-weight: bold;
-}
-
-
-nav a:hover {
-  color: #00f2ff;
-}
-
-.container.login {
-  max-width: 400px;
-  margin: 100px auto;
-  background: #1e1e2f;
-  padding: 2rem;
-  border-radius: 10px;
-  text-align: center;
-}
-
-.container.login input,
-button {
-  padding: 10px;
-  margin: 10px 0;
-  width: 100%;
-  border: none;
-  border-radius: 5px;
-}
-
-.container.login input {
-  background: #333;
-  color: #fff;
-}
-
-button {
-  background: #00f2ff;
-  color: #000;
-  cursor: pointer;
-}
-
-.logo {
-  height: 50px;
-  margin: 1rem;
-}
-
-
-.container {
-  background: rgba(255, 255, 255, 0.05);
-  padding: 30px;
-  border-radius: 10px;
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-  backdrop-filter: blur(10px);
-}
-
-main {
-  padding: 2rem;
-}
-
-@keyframes gradient {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
+.hero{margin-bottom:30px}
+#search{width:100%;background:#ffffff12;color:#fff}
