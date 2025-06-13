@@ -1,4 +1,4 @@
-const BACKEND = "https://your-railway-url.up.railway.app"; // ← замените
+const BACKEND = "https://loop-backend-production-a1b3.up.railway.app/"; // ← замените
 
 function navigate(path) {
   history.pushState({}, "", path);
