@@ -1,0 +1,32 @@
+body {
+  background: #111;
+  color: #fff;
+  font-family: sans-serif;
+  margin: 0;
+  padding: 0;
+}
+nav {
+  display: flex;
+  justify-content: space-around;
+  background: #222;
+  padding: 1em;
+}
+nav a {
+  color: #0ff;
+  text-decoration: none;
+}
+.page {
+  padding: 2em;
+}
+.track {
+  display: flex;
+  align-items: center;
+  gap: 1em;
+  margin-bottom: 1em;
+}
+.track img {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 8px;
+}

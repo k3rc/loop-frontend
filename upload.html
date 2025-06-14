@@ -1,0 +1,14 @@
+<section class="page">
+  <h1>Upload Track</h1>
+  <form id="uploadForm">
+    <input name="title" placeholder="Title" required />
+    <input name="artist" placeholder="Artist" required />
+    <input name="album" placeholder="Album" required />
+    <input name="genre" placeholder="Genre" required />
+    <input type="file" name="file" accept="audio/*" required />
+    <input type="file" name="cover" accept="image/*" required />
+    <button>Upload</button>
+  </form>
+  <div id="uploadResult"></div>
+</section>
+<script src="upload.js"></script>
