@@ -1,31 +1,28 @@
-const BASE_API = "https://loop-backend-b9ct.onrender.com/"; // заменишь если нужно
+const BASE_API = "https://loop-backend-b9ct.onrender.com/"; // или твой Render-URL
 
-const form = document.getElementById("uploadForm");
-const tokenInput = document.getElementById("tokenInput");
-const statusDiv = document.getElementById("status");
-
-// пример: вставка Telegram токена из localStorage
-tokenInput.value = localStorage.getItem("telegram_token") || "";
-
-form.addEventListener("submit", async (e) => {
+document.getElementById("uploadForm").addEventListener("submit", async (e) => {
   e.preventDefault();
-
+  const form = e.target;
   const formData = new FormData(form);
 
+  const statusDiv = document.getElementById("uploadStatus");
+  statusDiv.innerText = "⏳ Загрузка...";
+
   try {
-    const response = await fetch(`${BASE_API}/upload`, {
+    const res = await fetch(`${BASE_API}/upload`, {
       method: "POST",
-      body: formData,
+      body: formData
     });
 
-    if (!response.ok) {
-      const error = await response.json();
+    if (!res.ok) {
+      const error = await res.json();
       throw new Error(error.detail || "Ошибка загрузки");
     }
 
-    const result = await response.json();
-    statusDiv.innerText = "✅ Успешно загружено!";
-    console.log("Результат загрузки:", result);
+    const result = await res.json();
+    statusDiv.innerText = "✅ Загружено!";
+    console.log("Загружено:", result);
+    form.reset();
   } catch (err) {
     console.error(err);
     statusDiv.innerText = "❌ Ошибка: " + err.message;
