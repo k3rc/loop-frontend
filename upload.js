@@ -1,13 +1,21 @@
 const API_URL = process.env.REACT_APP_API_URL || "http://localhost:8000";
 
-document.getElementById("uploadForm").addEventListener("submit", async (e) => {
-  e.preventDefault();
-  const form = new FormData(e.target);
-  form.append("token", localStorage.getItem("token"));
-  const res = await fetch("https://loop-backend-production.up.railway.app/upload", {
+async function uploadFile(file) {
+  const formData = new FormData();
+  formData.append("file", file);
+
+  const response = await fetch(`${API_URL}/upload`, {
     method: "POST",
-    body: form,
+    body: formData,
   });
-  const result = await res.json();
-  document.getElementById("uploadResult").innerText = "Uploaded: " + result.title;
-});
+
+  if (!response.ok) {
+    throw new Error("Ошибка загрузки файла");
+  }
+
+  const data = await response.json();
+  return data;
+}
+
+// Экспорт функции, если нужно
+export { uploadFile };
