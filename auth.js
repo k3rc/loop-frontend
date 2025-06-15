@@ -1,10 +1,21 @@
-const userId = prompt("Enter your Telegram UID:");
-const token = window.jwt = jwtSign(userId, "loopsecret123");
-localStorage.setItem("token", token);
+const API_URL = process.env.REACT_APP_API_URL || "http://localhost:8000";
 
-function jwtSign(sub, secret) {
-  const header = btoa(JSON.stringify({ alg: "HS256", typ: "JWT" }));
-  const payload = btoa(JSON.stringify({ sub }));
-  const signature = btoa(secret); // not secure — only for demo
-  return [header, payload, signature].join(".");
+async function login(credentials) {
+  const response = await fetch(`${API_URL}/auth/login`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(credentials),
+  });
+
+  if (!response.ok) {
+    throw new Error("Ошибка авторизации");
+  }
+
+  const data = await response.json();
+  return data;
 }
+
+// Экспорт функции, если нужно
+export { login };
