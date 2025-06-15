@@ -3,14 +3,15 @@ document.addEventListener("DOMContentLoaded", () => {
   const tokenInput = document.getElementById("tokenInput");
   const statusDiv = document.getElementById("uploadStatus");
 
-  // Получаем токен из localStorage или другого источника
-  const token = localStorage.getItem("telegram_token") || "";
+  // Получаем токен из localStorage
+  const token = localStorage.getItem("7812495971:AAFNTowxTUrHda4Nsih8DzIzEQjVS8sWxIk") || "";
 
   if (!token) {
     statusDiv.textContent = "Ошибка: токен не найден. Пожалуйста, авторизуйтесь.";
     return;
   }
 
+  // Вставляем токен в скрытое поле формы
   tokenInput.value = token;
 
   form.addEventListener("submit", async (e) => {
@@ -27,8 +28,14 @@ document.addEventListener("DOMContentLoaded", () => {
       });
 
       if (!response.ok) {
-        const errorData = await response.json();
-        statusDiv.textContent = `Ошибка: ${errorData.detail || response.statusText}`;
+        // Попытка прочитать тело ошибки
+        let errorMsg = response.statusText;
+        try {
+          const errData = await response.json();
+          if (errData.detail) errorMsg = errData.detail;
+        } catch {}
+
+        statusDiv.textContent = `Ошибка: ${errorMsg}`;
         return;
       }
 
@@ -36,8 +43,4 @@ document.addEventListener("DOMContentLoaded", () => {
       statusDiv.textContent = "Трек успешно загружен! 🎉";
       form.reset();
     } catch (error) {
-      statusDiv.textContent = "Ошибка сети или сервера. Попробуйте позже.";
-      console.error(error);
-    }
-  });
-});
+      status
