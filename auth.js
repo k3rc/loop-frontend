@@ -17,5 +17,4 @@ async function login(credentials) {
   return data;
 }
 
-// Экспорт функции, если нужно
 export { login };
