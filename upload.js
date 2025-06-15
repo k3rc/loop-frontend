@@ -1,3 +1,5 @@
+const API_URL = process.env.REACT_APP_API_URL || "http://localhost:8000";
+
 document.getElementById("uploadForm").addEventListener("submit", async (e) => {
   e.preventDefault();
   const form = new FormData(e.target);
