@@ -1,30 +1,43 @@
-const BASE_API = "https://loop-backend-b9ct.onrender.com/"; // или твой Render-URL
-
-document.getElementById("uploadForm").addEventListener("submit", async (e) => {
-  e.preventDefault();
-  const form = e.target;
-  const formData = new FormData(form);
-
+document.addEventListener("DOMContentLoaded", () => {
+  const form = document.getElementById("uploadForm");
+  const tokenInput = document.getElementById("tokenInput");
   const statusDiv = document.getElementById("uploadStatus");
-  statusDiv.innerText = "⏳ Загрузка...";
 
-  try {
-    const res = await fetch(`${BASE_API}/upload`, {
-      method: "POST",
-      body: formData
-    });
+  // Получаем токен из localStorage или другого источника
+  const token = localStorage.getItem("telegram_token") || "";
 
-    if (!res.ok) {
-      const error = await res.json();
-      throw new Error(error.detail || "Ошибка загрузки");
-    }
-
-    const result = await res.json();
-    statusDiv.innerText = "✅ Загружено!";
-    console.log("Загружено:", result);
-    form.reset();
-  } catch (err) {
-    console.error(err);
-    statusDiv.innerText = "❌ Ошибка: " + err.message;
+  if (!token) {
+    statusDiv.textContent = "Ошибка: токен не найден. Пожалуйста, авторизуйтесь.";
+    return;
   }
+
+  tokenInput.value = token;
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    statusDiv.textContent = "Загрузка...";
+
+    const formData = new FormData(form);
+
+    try {
+      const response = await fetch("https://loop-backend-b9ct.onrender.com/upload", {
+        method: "POST",
+        body: formData,
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        statusDiv.textContent = `Ошибка: ${errorData.detail || response.statusText}`;
+        return;
+      }
+
+      const data = await response.json();
+      statusDiv.textContent = "Трек успешно загружен! 🎉";
+      form.reset();
+    } catch (error) {
+      statusDiv.textContent = "Ошибка сети или сервера. Попробуйте позже.";
+      console.error(error);
+    }
+  });
 });
