@@ -2,104 +2,45 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Loop WebApp</title>
-  <style>
-    body {
-      background: #121212;
-      color: #eee;
-      font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 0;
-    }
-    header {
-      display: flex;
-      background: #222;
-      padding: 10px;
-    }
-    header button {
-      background: none;
-      border: none;
-      color: #eee;
-      padding: 10px 20px;
-      cursor: pointer;
-      font-size: 16px;
-      transition: background 0.3s;
-    }
-    header button:hover, header button.active {
-      background: #444;
-    }
-    main > section {
-      display: none;
-      padding: 20px;
-    }
-    main > section.active {
-      display: block;
-    }
-    .track {
-      margin-bottom: 10px;
-      padding: 10px;
-      background: #222;
-      border-radius: 4px;
-    }
-    label, input, button {
-      display: block;
-      margin: 10px 0;
-    }
-    input[type="file"] {
-      padding: 5px;
-      background: #333;
-      color: #eee;
-      border: none;
-      border-radius: 4px;
-    }
-    button.upload-btn {
-      background: #1db954;
-      border: none;
-      color: white;
-      padding: 10px;
-      border-radius: 4px;
-      cursor: pointer;
-      font-weight: bold;
-    }
-    button.upload-btn:hover {
-      background: #17a84b;
-    }
-  </style>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Loop</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
-<body>
+<body class="dark">
+  <nav class="navbar">
+    <button onclick="showTab('home')">Home</button>
+    <button onclick="showTab('playlist')">Playlist</button>
+    <button onclick="showTab('upload')">Upload</button>
+  </nav>
 
-<header>
-  <button id="tab-home" class="active">Home</button>
-  <button id="tab-playlist">Playlist</button>
-  <button id="tab-upload">Upload</button>
-</header>
+  <main>
+    <section id="home" class="tab active">
+      <h1>🎧 Добро пожаловать в Loop</h1>
+      <p>Музыка рядом. Загружай и слушай любимое.</p>
+    </section>
 
-<main>
-  <section id="home" class="active">
-    <h1>Добро пожаловать в Loop WebApp</h1>
-    <p>Здесь вы можете слушать свои треки, загружать новые и искать рекомендации.</p>
-  </section>
+    <section id="playlist" class="tab">
+      <h2>📀 Твои треки</h2>
+      <div id="trackList">Загрузка...</div>
+    </section>
 
-  <section id="playlist">
-    <h1>Плейлист</h1>
-    <div id="tracks-list">
-      <!-- Список треков загрузится сюда -->
-    </div>
-    <button id="refresh-tracks">Обновить плейлист</button>
-  </section>
+    <section id="upload" class="tab">
+      <h2>⬆️ Загрузить трек</h2>
+      <form id="uploadForm">
+        <input type="text" name="title" placeholder="Название трека" required />
+        <input type="text" name="artist" placeholder="Артист" required />
+        <input type="text" name="album" placeholder="Альбом" />
+        <input type="text" name="genre" placeholder="Жанр" />
+        <input type="file" name="file" accept="audio/*" required />
+        <input type="file" name="cover" accept="image/*" required />
+        <input type="hidden" name="token" id="tokenInput" />
+        <button type="submit">Загрузить</button>
+      </form>
+      <div id="uploadStatus"></div>
+    </section>
+  </main>
 
-  <section id="upload">
-    <h1>Загрузить трек</h1>
-    <form id="upload-form">
-      <label for="file">Выберите аудиофайл:</label>
-      <input type="file" id="file" name="file" accept="audio/*" required />
-      <button type="submit" class="upload-btn">Загрузить</button>
-    </form>
-    <div id="upload-status"></div>
-  </section>
-</main>
-
-<script src="app.js"></script>
+  <script src="auth.js"></script>
+  <script src="upload.js"></script>
 </body>
 </html>
