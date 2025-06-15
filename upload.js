@@ -17,5 +17,4 @@ async function uploadFile(file) {
   return data;
 }
 
-// Экспорт функции, если нужно
 export { uploadFile };
