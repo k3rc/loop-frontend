@@ -97,3 +97,23 @@ document.getElementById("refresh-tracks").addEventListener("click", loadTracks);
 
 // При первой загрузке ставим активную вкладку Home
 setActiveTab("home");
+
+document.getElementById("upload-form").addEventListener("submit", async (e) => {
+  e.preventDefault();
+  const fileInput = document.getElementById("audio-file");
+  const formData = new FormData();
+  formData.append("file", fileInput.files[0]);
+
+  try {
+    const res = await fetch(`${API_URL}/upload`, {
+      method: "POST",
+      body: formData,
+    });
+    const data = await res.json();
+    alert("Файл загружен: " + data.filename);
+  } catch (err) {
+    console.error(err);
+    alert("Ошибка загрузки");
+  }
+});
+
