@@ -117,3 +117,23 @@ document.getElementById("upload-form").addEventListener("submit", async (e) => {
   }
 });
 
+async function loadPlaylist() {
+  try {
+    const res = await fetch(`${API_URL}/tracks`);
+    const tracks = await res.json();
+    const container = document.getElementById("playlist-container");
+    container.innerHTML = "";
+    tracks.forEach(track => {
+      const div = document.createElement("div");
+      div.innerHTML = `
+        <p><strong>${track.title}</strong></p>
+        <audio controls src="${track.url}"></audio>
+        <hr/>
+      `;
+      container.appendChild(div);
+    });
+  } catch (err) {
+    console.error(err);
+    alert("Ошибка загрузки плейлиста");
+  }
+}
