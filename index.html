@@ -1,46 +1,68 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Loop</title>
   <link rel="stylesheet" href="style.css" />
 </head>
-<body class="dark">
-  <nav class="navbar">
-    <button onclick="showTab('home')">Home</button>
-    <button onclick="showTab('playlist')">Playlist</button>
-    <button onclick="showTab('upload')">Upload</button>
-  </nav>
+<body>
+  <div class="app-container">
+    <header>
+      <img src="assets/logo.svg" alt="Loop Logo" class="logo" />
+      <div class="profile">
+        <img src="assets/user.jpg" alt="User" />
+      </div>
+    </header>
 
-  <main>
-    <section id="home" class="tab active">
-      <h1>🎧 Добро пожаловать в Loop</h1>
-      <p>Музыка рядом. Загружай и слушай любимое.</p>
+    <div class="search-bar">
+      <input type="text" placeholder="Search for songs, artists..." />
+    </div>
+
+    <section class="albums">
+      <h2>Popular</h2>
+      <div class="album-carousel">
+        <img src="assets/album1.jpg" />
+        <img src="assets/album2.jpg" class="active" />
+        <img src="assets/album3.jpg" />
+      </div>
+      <p class="album-title">Mind Lose</p>
+      <p class="artist-name">Artist · Melinda Finn</p>
     </section>
 
-    <section id="playlist" class="tab">
-      <h2>📀 Твои треки</h2>
-      <div id="trackList">Загрузка...</div>
+    <section class="featured">
+      <h2>Featured</h2>
+      <div class="track-list">
+        <div class="track-card">
+          <img src="assets/track1.jpg" />
+          <p class="track-name">Awesome • Max</p>
+          <p class="track-artist">Craze</p>
+        </div>
+        <div class="track-card">
+          <img src="assets/track2.jpg" />
+          <p class="track-name">Find the Love</p>
+          <p class="track-artist">Johan Doe</p>
+        </div>
+        <div class="track-card">
+          <img src="assets/track3.jpg" />
+          <p class="track-name">Feeling • Fritz</p>
+          <p class="track-artist">Nitro</p>
+        </div>
+      </div>
     </section>
 
-    <section id="upload" class="tab">
-      <h2>⬆️ Загрузить трек</h2>
-      <form id="uploadForm">
-        <input type="text" name="title" placeholder="Название трека" required />
-        <input type="text" name="artist" placeholder="Артист" required />
-        <input type="text" name="album" placeholder="Альбом" />
-        <input type="text" name="genre" placeholder="Жанр" />
-        <input type="file" name="file" accept="audio/*" required />
-        <input type="file" name="cover" accept="image/*" required />
-        <input type="hidden" name="token" id="tokenInput" />
-        <button type="submit">Загрузить</button>
-      </form>
-      <div id="uploadStatus"></div>
-    </section>
-  </main>
-
-  <script src="auth.js"></script>
-  <script src="upload.js"></script>
+    <footer>
+      <div class="now-playing">
+        <img src="assets/logo.svg" />
+        <div class="track-info">
+          <p class="track-name">Mind Lose</p>
+          <p class="track-artist">Melinda Finn</p>
+        </div>
+      </div>
+      <div class="progress-bar">
+        <div class="progress" style="width: 33%;"></div>
+      </div>
+    </footer>
+  </div>
 </body>
 </html>
