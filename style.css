@@ -24,7 +24,7 @@ header {
 }
 
 .logo {
-  width: 250px;
+  width: 150px !important; /* Это должно принудительно увеличить логотип */
 }
 
 .profile img {
